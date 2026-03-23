@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-textMain font-sans;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer utilities {
+  .neumorphic-card {
+    @apply bg-card rounded-2xl shadow-neumorphic border border-[#162b50];
+  }
+  .neumorphic-button {
+    @apply bg-card rounded-full shadow-neumorphic active:shadow-neumorphic-inset transition-shadow duration-300 flex items-center justify-center;
+  }
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+}

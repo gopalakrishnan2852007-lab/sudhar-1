@@ -1,0 +1,18 @@
+[
+  {
+    "id": "pm-kisan",
+    "name": "PM-Kisan Samman Nidhi",
+    "category": "Farming",
+    "description": "Financial benefit of Rs 6000 per year for landholding farmers.",
+    "eligibility": "All landholding farmer families.",
+    "documents_required": ["Aadhaar Card", "Bank Account Details", "Land Ownership Documents"]
+  },
+  {
+    "id": "ayushman-bharat",
+    "name": "Ayushman Bharat PM-JAY",
+    "category": "Health",
+    "description": "Health coverage of Rs. 5 lakhs per family per year for secondary and tertiary care.",
+    "eligibility": "Based on SECC 2011 data.",
+    "documents_required": ["Aadhaar Card", "Ration Card", "PM-JAY e-card"]
+  }
+]
