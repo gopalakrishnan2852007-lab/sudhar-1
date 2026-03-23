@@ -3,21 +3,22 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VAANI – Voice Assisted Accessible Native Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SETU – Sovereign Electronic Terminal for the Underprivileged</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Baloo 2', sans-serif;
-            background: #050A18;
-            color: #E8E8FF;
+            font-family: 'Inter', sans-serif;
+            background: #0A192F;
+            color: #E6F1FF;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -27,17 +28,14 @@
         .glow-bg {
             position: fixed;
             inset: 0;
-            background:
-                radial-gradient(ellipse 60% 40% at 20% 20%, rgba(30, 100, 255, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 50% at 80% 80%, rgba(30, 100, 255, 0.08) 0%, transparent 60%);
+            background: radial-gradient(circle at 50% 100%, rgba(250, 204, 21, 0.05) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
         }
 
         header {
             width: 100%;
-            padding: 20px 24px 16px;
-            border-bottom: 1px solid #1A2A4A;
+            padding: 24px 24px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -51,507 +49,324 @@
             gap: 12px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #2979FF;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
         .logo-text h1 {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 800;
-            color: #fff;
+            color: #FACC15;
             letter-spacing: 2px;
         }
 
         .logo-text p {
             font-size: 10px;
-            color: #7878AA;
+            color: #8892B0;
             letter-spacing: 1px;
             text-transform: uppercase;
-        }
-
-        .badge {
-            border: 1px solid #2979FF;
-            color: #2979FF;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            background: rgba(41, 121, 255, 0.08);
         }
 
         .container {
             width: 100%;
             max-width: 480px;
-            padding: 24px 16px;
+            padding: 16px;
             position: relative;
             z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 120px;
         }
 
         .section-label {
             font-size: 11px;
             letter-spacing: 2px;
-            color: #7878AA;
+            color: #8892B0;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            margin-top: 16px;
         }
 
         .lang-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 28px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .lang-btn {
-            background: #0A1628;
-            border: 2px solid #1A2A4A;
-            color: #E8E8FF;
-            padding: 14px 10px;
-            border-radius: 14px;
+            background: #112240;
+            border: 2px solid transparent;
+            color: #8892B0;
+            padding: 16px 8px;
+            border-radius: 16px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
-            font-family: 'Baloo 2', sans-serif;
-        }
-
-        .lang-btn:hover {
-            transform: translateY(-2px);
-            border-color: #2979FF;
-            background: rgba(41, 121, 255, 0.08);
+            box-shadow: 6px 6px 12px #071222, -6px -6px 12px #0d203c;
         }
 
         .lang-btn.active {
-            border-color: #2979FF;
-            background: rgba(41, 121, 255, 0.15);
-            box-shadow: 0 0 24px rgba(41, 121, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .lang-btn.active .native {
-            color: #2979FF;
+            border-color: #FACC15;
+            color: #FACC15;
+            box-shadow: inset 4px 4px 8px #071222, inset -4px -4px 8px #0d203c;
         }
 
         .lang-btn .native {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            display: block;
         }
 
-        .lang-btn .english {
-            font-size: 11px;
-            color: #7878AA;
-            margin-top: 2px;
-            display: block;
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .location-bar {
-            background: #0A1628;
-            border: 1px solid #1A2A4A;
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-        }
-
-        .location-bar.found {
-            border-color: rgba(0, 230, 118, 0.4);
-        }
-
-        .location-bar.error {
-            border-color: rgba(255, 68, 68, 0.4);
-        }
-
-        .loc-text {
-            color: #7878AA;
-            flex: 1;
-        }
-
-        .loc-btn {
-            border: 1px solid #2979FF;
-            color: #2979FF;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-            font-family: 'Baloo 2', sans-serif;
-            background: transparent;
-            transition: all 0.3s;
-        }
-
-        .loc-btn:hover {
-            background: rgba(41, 121, 255, 0.15);
-        }
-
-        .mic-section {
+        .vital-card {
+            background: #112240;
+            border-radius: 20px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 8px 0 28px;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 8px 8px 16px #071222, -8px -8px 16px #0d203c;
+            transition: all 0.2s;
         }
 
-        .mic-ring {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        .vital-card:active {
+            box-shadow: inset 6px 6px 12px #071222, inset -6px -6px 12px #0d203c;
+        }
+
+        .vital-icon {
+            font-size: 32px;
+            background: #0A192F;
+            padding: 16px;
+            border-radius: 50%;
+            box-shadow: inset 4px 4px 8px #071222, inset -4px -4px 8px #0d203c;
+        }
+
+        /* Action Cards Output */
+        #outputArea {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .action-card {
+            background: #112240;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 8px 8px 16px #071222, -8px -8px 16px #0d203c;
+            border: 1px solid #1a365d;
+        }
+
+        .action-card h3 {
+            color: #FACC15;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .action-card p {
+            color: #E6F1FF;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Bottom Controls */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            z-index: 100;
+            background: linear-gradient(to top, #0A192F 70%, transparent);
+        }
+
+        .nav-btn {
+            background: #112240;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            font-size: 24px;
+            color: #8892B0;
+            box-shadow: 6px 6px 12px #071222, -6px -6px 12px #0d203c;
+            cursor: pointer;
         }
 
-        .mic-ring::before,
-        .mic-ring::after {
-            content: '';
+        .nav-btn:active {
+            box-shadow: inset 4px 4px 8px #071222, inset -4px -4px 8px #0d203c;
+            color: #FACC15;
+        }
+
+        .mic-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-aura {
             position: absolute;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid rgba(41, 121, 255, 0.4);
-            animation: ripple 2s ease-out infinite;
+            background: rgba(250, 204, 21, 0.2);
+            filter: blur(15px);
+            animation: pulse 2s infinite ease-in-out;
+            display: none;
         }
 
-        .mic-ring::before {
-            width: 100%;
-            height: 100%;
+        .mic-aura.active {
+            display: block;
+            background: rgba(239, 68, 68, 0.4); /* Red when recording */
+        }
+        
+        .mic-aura.thinking {
+            display: block;
+            background: rgba(59, 130, 246, 0.4); /* Blue when thinking */
         }
 
-        .mic-ring::after {
-            width: 80%;
-            height: 80%;
-            animation-delay: 0.4s;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
 
-        @keyframes ripple {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        .mic-btn {
+        .setu-orb {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: #2979FF;
+            background: #FACC15;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(41, 121, 255, 0.4);
+            font-size: 36px;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
             position: relative;
             z-index: 2;
+            transition: all 0.3s;
         }
 
-        .mic-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px rgba(41, 121, 255, 0.5);
-        }
-
-        .mic-btn:active {
+        .setu-orb:active {
             transform: scale(0.95);
         }
 
-        .mic-btn.recording {
-            background: #FF4444;
-            box-shadow: 0 8px 32px rgba(255, 68, 68, 0.5);
-            animation: recordPulse 1s ease-in-out infinite;
+        .setu-orb.recording {
+            background: #EF4444;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
         }
 
-        @keyframes recordPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.08);
-            }
-        }
-
-        .mic-status {
-            font-size: 13px;
-            color: #7878AA;
-            letter-spacing: 0.5px;
-        }
-
-        .mic-status.recording {
-            color: #FF4444;
-            font-weight: 600;
-        }
-
-        .mic-status.thinking {
-            color: #2979FF;
-        }
-
-        .transcript-box {
-            background: #0A1628;
-            border: 1px solid #1A2A4A;
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 16px;
-            min-height: 54px;
-            font-size: 15px;
-            line-height: 1.5;
-            color: #7878AA;
-            font-style: italic;
-            transition: all 0.3s;
-        }
-
-        .transcript-box.has-text {
-            color: #E8E8FF;
-            font-style: normal;
-            border-color: #2979FF;
-        }
-
-        .response-card {
-            background: #0A1628;
-            border: 1px solid #1A2A4A;
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .response-card.visible {
-            display: block;
-        }
-
-        .response-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .response-label {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: #2979FF;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .speak-btn {
-            background: rgba(0, 230, 118, 0.1);
-            border: 1px solid rgba(0, 230, 118, 0.3);
-            color: #00E676;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            cursor: pointer;
-            font-family: 'Baloo 2', sans-serif;
-        }
-
-        .speak-btn:hover {
-            background: rgba(0, 230, 118, 0.2);
-        }
-
-        .response-text {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #E8E8FF;
-        }
-
-        .error-box {
-            background: rgba(255, 68, 68, 0.08);
-            border: 1px solid rgba(255, 68, 68, 0.3);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: #FF4444;
-            font-size: 13px;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .error-box.visible {
-            display: block;
-        }
-
-        .services-label {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #7878AA;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .service-chip {
-            background: #0A1628;
-            border: 1px solid #1A2A4A;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7878AA;
-        }
-
-        .service-chip:hover {
-            border-color: #2979FF;
-            color: #E8E8FF;
-            background: rgba(41, 121, 255, 0.08);
-            transform: translateY(-1px);
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px;
+        .status-text {
             text-align: center;
-            font-size: 11px;
-            color: #7878AA;
-            position: relative;
-            z-index: 1;
+            color: #8892B0;
+            font-size: 14px;
+            margin-top: 20px;
+            height: 20px;
+        }
+        
+        input[type="file"] {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-
     <div class="glow-bg"></div>
 
     <header>
         <div class="logo">
-            <div class="logo-icon">🎙️</div>
             <div class="logo-text">
-                <h1>VAANI</h1>
-                <p>Voice Accessible Native Interface</p>
+                <h1>SETU</h1>
+                <p>Your Voice, Your Rights.</p>
             </div>
         </div>
-        <span class="badge">Digital India</span>
     </header>
 
     <div class="container">
-
-        <p class="section-label">1. Choose Your Language / மொழி தேர்வு</p>
+        <p class="section-label">Language / மொழி / भाषा</p>
         <div class="lang-grid">
-            <button class="lang-btn active" data-lang="ta-IN" data-name="Tamil" onclick="selectLang(this)">
-                <span class="native">தமிழ்</span>
-                <span class="english">Tamil</span>
-            </button>
-            <button class="lang-btn" data-lang="hi-IN" data-name="Hindi" onclick="selectLang(this)">
-                <span class="native">हिंदी</span>
-                <span class="english">Hindi</span>
-            </button>
-            <button class="lang-btn" data-lang="te-IN" data-name="Telugu" onclick="selectLang(this)">
-                <span class="native">తెలుగు</span>
-                <span class="english">Telugu</span>
-            </button>
-            <button class="lang-btn" data-lang="ml-IN" data-name="Malayalam" onclick="selectLang(this)">
-                <span class="native">മലയാളം</span>
-                <span class="english">Malayalam</span>
-            </button>
+            <button class="lang-btn active" data-lang="ta-IN" data-name="Tamil" onclick="selectLang(this)"><div class="native">தமிழ்</div></button>
+            <button class="lang-btn" data-lang="hi-IN" data-name="Hindi" onclick="selectLang(this)"><div class="native">हिंदी</div></button>
+            <button class="lang-btn" data-lang="te-IN" data-name="Telugu" onclick="selectLang(this)"><div class="native">తెలుగు</div></button>
+            <button class="lang-btn" data-lang="ml-IN" data-name="Malayalam" onclick="selectLang(this)"><div class="native">മലയാളം</div></button>
+            <button class="lang-btn" data-lang="mr-IN" data-name="Marathi" onclick="selectLang(this)"><div class="native">मराठी</div></button>
+            <button class="lang-btn" data-lang="bn-IN" data-name="Bengali" onclick="selectLang(this)"><div class="native">বাংলা</div></button>
+            <button class="lang-btn" data-lang="gu-IN" data-name="Gujarati" onclick="selectLang(this)"><div class="native">ગુજરાતી</div></button>
+            <button class="lang-btn" data-lang="kn-IN" data-name="Kannada" onclick="selectLang(this)"><div class="native">ಕನ್ನಡ</div></button>
         </div>
 
-        <div class="location-bar" id="locationBar">
-            <span>📍</span>
-            <span class="loc-text" id="locText">Location not enabled — needed for nearby hospitals</span>
-            <button class="loc-btn" onclick="getLocation()">Enable</button>
-        </div>
-
-        <p class="section-label">2. Speak / பேசுங்கள்</p>
-        <div class="mic-section">
-            <div class="mic-ring">
-                <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎙️</button>
+        <div id="vitalsArea">
+            <p class="section-label">Vitals Dashboard</p>
+            <div class="vitals-grid">
+                <div class="vital-card" onclick="askAI('Tell me about government health schemes')">
+                    <div class="vital-icon">🏥</div>
+                    <span style="font-weight: 600;">Health</span>
+                </div>
+                <div class="vital-card" onclick="askAI('Tell me about PM Kisan and farming help')">
+                    <div class="vital-icon">🚜</div>
+                    <span style="font-weight: 600;">Farming</span>
+                </div>
+                <div class="vital-card" onclick="askAI('How to apply for old age pension')">
+                    <div class="vital-icon">💰</div>
+                    <span style="font-weight: 600;">Pension</span>
+                </div>
+                <div class="vital-card" onclick="askAI('Education scholarships available')">
+                    <div class="vital-icon">🎓</div>
+                    <span style="font-weight: 600;">Education</span>
+                </div>
             </div>
-            <span class="mic-status" id="micStatus">Tap to speak</span>
+            <div class="status-text" id="statusText">Tap the golden orb to speak...</div>
         </div>
 
-        <div class="transcript-box" id="transcriptBox">Your voice will appear here…</div>
-        <div class="error-box" id="errorBox"></div>
-
-        <div class="response-card" id="responseCard">
-            <div class="response-header">
-                <span class="response-label">🤖 VAANI Response</span>
-                <button class="speak-btn" onclick="speakResponse()">🔊 Listen</button>
+        <div id="outputArea">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="color: #FACC15;">Action Steps</h2>
+                <button onclick="resetUI()" style="background:none; border:none; color:#8892B0; font-size: 24px; cursor: pointer;">✕</button>
             </div>
-            <div class="response-text" id="responseText"></div>
+            <div id="cardsContainer"></div>
         </div>
-
-        <p class="services-label">Quick Questions / விரைவு கேள்விகள்</p>
-        <div class="services-grid">
-            <div class="service-chip" onclick="askQuick('ration card items available')">🍚 Ration Card</div>
-            <div class="service-chip" onclick="askQuick('government hospital near me')">🏥 Hospital</div>
-            <div class="service-chip" onclick="askQuick('TNSTC bus timings information')">🚌 Bus Timings</div>
-            <div class="service-chip" onclick="askQuick('Aadhaar card help and update')">🪪 Aadhaar</div>
-        </div>
-
     </div>
 
-    <footer>VAANI · Zero cost · Zero app · Just speak · Digital India Mission</footer>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <!-- Document Vault (Placeholder) -->
+        <button class="nav-btn">📁</button>
+
+        <!-- Mic Orb -->
+        <div class="mic-wrapper">
+            <div class="mic-aura" id="micAura"></div>
+            <button class="setu-orb" id="micBtn" onclick="toggleMic()">🎙️</button>
+        </div>
+
+        <!-- Vision Camera -->
+        <button class="nav-btn" onclick="document.getElementById('cameraInput').click()">📷</button>
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" onchange="handleImageUpload(event)">
+    </div>
 
     <script>
         let selectedLang = 'ta-IN';
         let selectedLangName = 'Tamil';
         let recognition = null;
         let isRecording = false;
-        let lastResponse = '';
-        let userLat = null;
-        let userLon = null;
-
-        if (window.speechSynthesis) {
-            window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
-        }
-
-        getLocation();
 
         function selectLang(btn) {
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             selectedLang = btn.dataset.lang;
             selectedLangName = btn.dataset.name;
-            // No theme switching — uniform dark blue always
-        }
-
-        function getLocation() {
-            const bar = document.getElementById('locationBar');
-            const text = document.getElementById('locText');
-            text.textContent = 'Getting your location…';
-            if (!navigator.geolocation) {
-                text.textContent = 'Location not supported';
-                bar.classList.add('error');
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    userLat = pos.coords.latitude;
-                    userLon = pos.coords.longitude;
-                    text.textContent = '✅ Location found (' + userLat.toFixed(3) + ', ' + userLon.toFixed(3) + ')';
-                    bar.classList.add('found');
-                    bar.querySelector('.loc-btn').textContent = 'Refresh';
-                },
-                () => {
-                    text.textContent = 'Location denied — hospital search may not work';
-                    bar.classList.add('error');
-                },
-                { timeout: 10000, enableHighAccuracy: true }
-            );
         }
 
         function toggleMic() {
@@ -561,102 +376,132 @@
 
         function startRecording() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) { showError('Please use Chrome browser.'); return; }
+            if (!SpeechRecognition) { alert('Speech Recognition not supported in this browser.'); return; }
             recognition = new SpeechRecognition();
             recognition.lang = selectedLang;
-            recognition.interimResults = true;
+            recognition.interimResults = false;
 
             recognition.onstart = () => {
                 isRecording = true;
                 document.getElementById('micBtn').classList.add('recording');
-                document.getElementById('micBtn').textContent = '⏹️';
-                document.getElementById('micStatus').textContent = 'Listening… speak now';
-                document.getElementById('micStatus').className = 'mic-status recording';
-                hideError();
+                document.getElementById('micAura').className = 'mic-aura active';
+                document.getElementById('statusText').textContent = 'Listening... Speak now.';
+                document.getElementById('vitalsArea').style.display = 'block';
+                document.getElementById('outputArea').style.display = 'none';
             };
 
             recognition.onresult = (e) => {
-                const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
-                const box = document.getElementById('transcriptBox');
-                box.textContent = transcript;
-                box.classList.add('has-text');
+                const text = e.results[0][0].transcript;
+                askAI(text);
             };
 
             recognition.onend = () => {
                 isRecording = false;
                 document.getElementById('micBtn').classList.remove('recording');
-                document.getElementById('micBtn').textContent = '🎙️';
-                document.getElementById('micStatus').textContent = 'Tap to speak';
-                document.getElementById('micStatus').className = 'mic-status';
-                const text = document.getElementById('transcriptBox').textContent;
-                if (text && text !== 'Your voice will appear here…') sendToAI(text);
+                if(document.getElementById('micAura').classList.contains('active')) {
+                   document.getElementById('micAura').className = 'mic-aura';
+                   document.getElementById('statusText').textContent = 'Tap the golden orb to speak...';
+                }
             };
 
-            recognition.onerror = (e) => { showError('Mic error: ' + e.error); stopRecording(); };
             recognition.start();
         }
 
-        function stopRecording() { if (recognition) recognition.stop(); }
+        function stopRecording() {
+            if (recognition) recognition.stop();
+        }
 
-        async function sendToAI(text) {
-            document.getElementById('micBtn').textContent = '⏳';
-            document.getElementById('micStatus').textContent = 'Thinking…';
-            document.getElementById('micStatus').className = 'mic-status thinking';
-            document.getElementById('responseCard').classList.remove('visible');
-
+        async function askAI(text) {
+            document.getElementById('micAura').className = 'mic-aura thinking';
+            document.getElementById('statusText').textContent = 'SETU is thinking...';
+            
             try {
-                const body = { message: text, language: selectedLangName, langCode: selectedLang };
-                if (userLat && userLon) { body.lat = userLat; body.lon = userLon; }
-
                 const res = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
+                    body: JSON.stringify({ message: text, language: selectedLangName })
                 });
-
-                if (!res.ok) throw new Error('Server error: ' + res.status);
+                
                 const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                lastResponse = data.reply;
-                document.getElementById('responseText').textContent = data.reply;
-                document.getElementById('responseCard').classList.add('visible');
-                speakResponse();
+                if(data.error) throw new Error(data.error);
+                
+                renderCards(data.steps, data.audioBase64);
             } catch (err) {
-                showError('Could not get response: ' + err.message);
-            } finally {
-                document.getElementById('micBtn').textContent = '🎙️';
-                document.getElementById('micStatus').textContent = 'Tap to speak';
-                document.getElementById('micStatus').className = 'mic-status';
+                alert("Error connecting to SETU AI: " + err.message);
+                resetUI();
             }
         }
 
-        function speakResponse() {
-            if (!lastResponse || !window.speechSynthesis) return;
+        async function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('micAura').className = 'mic-aura thinking';
+            document.getElementById('statusText').textContent = 'Analyzing Document...';
+
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                const base64 = reader.result.split(',')[1];
+                try {
+                    const res = await fetch('/api/vision', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ imageBase64: base64, mimeType: file.type, language: selectedLangName })
+                    });
+                    const data = await res.json();
+                    if(data.error) throw new Error(data.error);
+                    renderCards(data.steps, data.audioBase64);
+                } catch(err) {
+                    alert("Error analyzing image: " + err.message);
+                    resetUI();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderCards(steps, audioBase64) {
+            document.getElementById('micAura').className = 'mic-aura';
+            document.getElementById('vitalsArea').style.display = 'none';
+            
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            if (steps && Array.isArray(steps)) {
+                steps.forEach((step, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'action-card';
+                    card.innerHTML = `
+                        <h3>Step ${idx + 1}: ${step.title || 'Action'}</h3>
+                        <p>${step.description}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = `<div class="action-card"><p>Could not generate steps.</p></div>`;
+            }
+
+            document.getElementById('outputArea').style.display = 'flex';
+
+            if(audioBase64) {
+                // Play audio if generated
+                const audio = new Audio("data:audio/mp3;base64," + audioBase64);
+                audio.play();
+            } else if (window.speechSynthesis) {
+                // Fallback local TTS
+                const fullText = steps.map(s => s.description).join(". ");
+                const utter = new SpeechSynthesisUtterance(fullText);
+                utter.lang = selectedLang;
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        function resetUI() {
+            document.getElementById('micAura').className = 'mic-aura';
+            document.getElementById('outputArea').style.display = 'none';
+            document.getElementById('vitalsArea').style.display = 'block';
+            document.getElementById('statusText').textContent = 'Tap the golden orb to speak...';
             window.speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(lastResponse);
-            utter.lang = selectedLang;
-            utter.rate = 0.85;
-            const voices = window.speechSynthesis.getVoices();
-            const voice = voices.find(v => v.lang === selectedLang)
-                || voices.find(v => v.lang.startsWith(selectedLang.split('-')[0]))
-                || null;
-            if (voice) utter.voice = voice;
-            window.speechSynthesis.speak(utter);
         }
-
-        function askQuick(topic) {
-            document.getElementById('transcriptBox').textContent = topic;
-            document.getElementById('transcriptBox').classList.add('has-text');
-            sendToAI(topic);
-        }
-
-        function showError(msg) {
-            const box = document.getElementById('errorBox');
-            box.textContent = '⚠️ ' + msg;
-            box.classList.add('visible');
-        }
-
-        function hideError() { document.getElementById('errorBox').classList.remove('visible'); }
     </script>
 </body>
 

@@ -3,27 +3,23 @@ const handler = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { message, language } = req.body;
+  const { imageBase64, mimeType, language } = req.body;
 
-  if (!message) {
-    return res.status(400).json({ error: 'No message provided' });
+  if (!imageBase64) {
+    return res.status(400).json({ error: 'No image provided' });
   }
 
-  // Ensure robust checking of multiple possible Env Var names
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GEMINI_KEY || process.env.GOOGLE_API_KEY;
   
   if (!GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY is not set in environment variables');
-    return res.status(500).json({ error: 'API key not configured on server. Please set GEMINI_API_KEY.' });
+    return res.status(500).json({ error: 'API key not configured on server' });
   }
 
   try {
-    const prompt = `You are SETU (Sovereign Electronic Terminal for the Underprivileged). Analyze the user's query and provide a step-by-step actionable response. 
-    You MUST reply ONLY in ${language || 'English'} language.
-    Respond strictly in JSON array format: [{"title": "String", "description": "String"}]. 
-    Do not use markdown formatting like \`\`\`json.
-    
-    User Query: ${message}`;
+    const prompt = `You are SETU. The user uploaded a government document/notice. Explain what it is and what actions the user needs to take. 
+    You MUST reply ONLY in ${language || 'English'} language causing no confusion to elderly users.
+    Respond strictly in JSON array format: [{"title": "String", "description": "String"}].
+    Do not use markdown formatting like \`\`\`json.`;
 
     const geminiRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
@@ -31,7 +27,13 @@ const handler = async (req, res) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          contents: [{ 
+            role: 'user', 
+            parts: [
+              { text: prompt },
+              { inlineData: { data: imageBase64, mimeType: mimeType || 'image/jpeg' }}
+            ] 
+          }],
           generationConfig: { maxOutputTokens: 1024, temperature: 0.5 }
         })
       }
@@ -39,8 +41,7 @@ const handler = async (req, res) => {
 
     if (!geminiRes.ok) {
       const errData = await geminiRes.json();
-      console.error('Gemini API error response:', JSON.stringify(errData));
-      throw new Error('Gemini API error: ' + (errData.error?.message || geminiRes.status));
+      throw new Error('Gemini Vision API error: ' + (errData.error?.message || geminiRes.status));
     }
 
     const data = await geminiRes.json();
@@ -57,12 +58,12 @@ const handler = async (req, res) => {
     try {
       steps = JSON.parse(reply);
     } catch {
-      steps = [{ title: "Guidance", description: reply }];
+      steps = [{ title: "Analysis", description: reply }];
     }
 
     return res.status(200).json({ steps });
   } catch (err) {
-    console.error('Handler error:', err.message);
+    console.error('Vision Handler error:', err.message);
     return res.status(500).json({ error: err.message });
   }
 };
